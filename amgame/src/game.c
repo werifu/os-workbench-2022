@@ -14,5 +14,6 @@ int main(const char *args) {
   // while (1) {
   //   // print_key();
   // }
+  while(1);
   return 0;
 }

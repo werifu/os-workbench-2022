@@ -55,9 +55,9 @@ bool is_opt_v(char* arg, int len) {
   if (len == 2) {
     char str[] = "-v";
     for (int i = 0; i < len; i++) {
+      printf("%c %c", arg[i], str[i]);
       if (arg[i] != str[i]) return false;
     }
-    printf("?");
     return true;
   }
   assert(len == 9);

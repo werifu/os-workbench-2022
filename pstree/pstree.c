@@ -150,7 +150,7 @@ int build_tree(int nodes_num) {
     assert(fp);
     char stat_buf[1024];
     // n bytes are read
-    int n = fread(fp, stat_buf);
+    int n = fread(fp, stat_buf, 1024);
     nodes[i] = parse_node(stat_buf);
   }
 

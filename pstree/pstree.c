@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <string.h>
 #include <dirent.h>
+#include <unistd.h>
 // bool true & false
 #define true 1
 #define false 0
@@ -142,7 +143,7 @@ int build_tree(int nodes_num) {
     int pid = pids[i];
     char path[256] = {0};
     sprintf(path, "/proc/%d/stat", pid);
-    FILE* fp = fopen(path, "r");
+    int fp = open(path);
     if (!fp) {
       printf("fail to open file %s\n", path);
       return -1;

@@ -95,7 +95,7 @@ int load_proc() {
   DIR *pDir;
   pDir = opendir("/proc/");
   if (pDir == NULL) {
-      printf ("Cannot open directory '%s'\n", argv[1]);
+      printf ("Cannot open directory '/proc/'\n");
       return 1;
   }
   // Process each entr

@@ -115,12 +115,20 @@ int load_proc() {
   while ((pDirent = readdir(pDir)) != NULL) {
       int num = parse_digits(pDirent->d_name);
       if (num == -1) continue;
-      printf("[%d]\n", num);
+      // printf("[%d]\n", num);
       pids[idx++] = num;
   }
   assert(pids[idx] == 0 && pids[idx-1] > 0);
   return idx;
 }
+
+struct ProcNode {
+  int pid;
+  char* exec_name;
+  int name_size;
+  int ppid;
+  struct ProcNode* children[];
+};
 
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
@@ -135,5 +143,6 @@ int main(int argc, char *argv[]) {
     printf("opt_p\n");
   }
   load_proc();
+
   return 0;
 }

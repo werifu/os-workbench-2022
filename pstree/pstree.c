@@ -91,14 +91,16 @@ void parse_opt(int argc, char *argv[]) {
 int pids[4096];
 // returns the number of processes 
 int load_proc() {
-  DIR* dir_p;
-  dir_p = opendir("/proc/");
-  if (dir_p) {
-    struct dirent *p;
-    p = readdir(dir_p);
-    while (p) {
-      printf("[%s]\n", p->d_name);
-    }
+  struct dirent *pDirent;
+  DIR *pDir;
+  pDir = opendir("/proc/");
+  if (pDir == NULL) {
+      printf ("Cannot open directory '%s'\n", argv[1]);
+      return 1;
+  }
+  // Process each entr
+  while ((pDirent = readdir(pDir)) != NULL) {
+      printf ("[%s]\n", pDirent->d_name);
   }
   return 0;
 }

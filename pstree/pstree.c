@@ -68,7 +68,7 @@ bool is_opt_v(char* arg, int len) {
 }
 
 void parse_opt(int argc, char *argv[]) {
-  printf("??\n");
+  printf("%d", argc);
   if (argc <= 1) return;
   for (int i = 1; i < argc; i++) {
     int len = strlen(argv[i]);

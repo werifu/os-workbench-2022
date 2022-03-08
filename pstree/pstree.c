@@ -51,13 +51,13 @@ bool is_opt_n(char* arg, int len) {
 }
 
 bool is_opt_v(char* arg, int len) {
-  printf("%s", arg);
   if (len != 2 || len != 9) return false;
   if (len == 2) {
     char str[] = "-v";
     for (int i = 0; i < len; i++) {
       if (arg[i] != str[i]) return false;
     }
+    printf("?");
     return true;
   }
   assert(len == 9);

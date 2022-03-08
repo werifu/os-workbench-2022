@@ -91,8 +91,8 @@ void parse_opt(int argc, char *argv[]) {
 int pids[4096];
 // returns the number of processes 
 int load_proc() {
-  DIR* dir;
-  dir = opendir("/proc/");
+  DIR* dir_p;
+  dir_p = opendir("/proc/");
   if (dir_p) {
     struct dirent *p;
     p = readdir(dir_p);

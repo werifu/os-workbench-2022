@@ -100,7 +100,7 @@ int load_proc() {
       printf("[%s]\n", p->d_name);
     }
   }
-  return;
+  return 0;
 }
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);

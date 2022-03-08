@@ -51,6 +51,7 @@ bool is_opt_n(char* arg, int len) {
 }
 
 bool is_opt_v(char* arg, int len) {
+  printf("%s", arg);
   if (len != 2 || len != 9) return false;
   if (len == 2) {
     char str[] = "-v";
@@ -71,7 +72,6 @@ void parse_opt(int argc, char *argv[]) {
   if (argc <= 1) return;
   for (int i = 1; i < argc; i++) {
     int len = strlen(argv[i]);
-    printf("%d", len);
     if (is_opt_v(argv[i], len)) {
       opt_v = true;
       // no need to analyse other options

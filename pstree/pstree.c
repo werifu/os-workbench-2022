@@ -68,10 +68,10 @@ bool is_opt_v(char* arg, int len) {
 }
 
 void parse_opt(int argc, char *argv[]) {
-  printf("%s", argv[1]);
   if (argc <= 1) return;
   for (int i = 1; i < argc; i++) {
     int len = strlen(argv[i]);
+    pritnf("%d", len);
     if (is_opt_v(argv[i], len)) {
       opt_v = true;
       // no need to analyse other options

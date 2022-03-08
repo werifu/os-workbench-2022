@@ -5,12 +5,13 @@
 // bool true & false
 #define true 1
 #define false 0
+typedef char bool;
 
 // unix succ & fail
 #define succ 0
 #define fail -1
 
-typedef char bool;
+#define MAX_PROC_NUM 4096
 
 bool opt_v = false;
 bool opt_n = false;
@@ -101,7 +102,7 @@ int parse_digits(char* str) {
   return result;
 }
 
-int pids[4096] = {0};
+int pids[MAX_PROC_NUM] = {0};
 // returns the number of processes 
 int load_proc() {
   struct dirent *pDirent;
@@ -127,9 +128,51 @@ struct ProcNode {
   char* exec_name;
   int name_size;
   int ppid;
-  struct ProcNode* children[];
-};
 
+  // nodes[children[i]] is its i-th child
+  int children[];
+  int child_num;
+};
+struct ProcNode nodes[MAX_PROC_NUM];
+
+// returns the index of the root node (pid=1)
+// returns -1 when fail occurs (such as open fail)
+int build_tree(int nodes_num) {
+  for (int i = 0; i < nodes_num; i++) {
+    int pid = pids[i];
+    char path[256] = {0};
+    sprintf(path, "/proc/%d/stat", pid);
+    int fp = open(path);
+    if (!fp) {
+      printf("fail to open file %s\n", path);
+      return -1;
+    }
+    assert(fp);
+    char stat_buf[1024];
+    // n bytes are read
+    int n = read(fp, stat_buf);
+    nodes[i] = parse_node(stat_buf);
+  }
+
+  // find the root index
+  int rooti = -1;
+  for (int i = 0; i < nodes_num; i++) {
+    if (nodes[i].pid == 1) {
+      rooti = i;
+      break;
+    }
+  }
+  assert(rooti != -1);
+
+  // fill children attr
+  return 
+}
+
+struct ProcNode parse_node(char* buf) {
+  struct ProcNode node;
+
+  return node;
+}
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {

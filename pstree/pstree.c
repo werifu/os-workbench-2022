@@ -131,7 +131,7 @@ struct ProcNode {
   int ppid;
 
   // nodes[children[i]] is its i-th child
-  int children[];
+  int* children;
   int child_num;
 };
 struct ProcNode nodes[MAX_PROC_NUM];

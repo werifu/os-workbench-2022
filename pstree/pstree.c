@@ -17,7 +17,7 @@ bool opt_n = false;
 bool opt_p = false;
 
 bool is_opt_p(char* arg, int len) {
-  if (len != 2 || len != 11) return false;
+  if (len != 2 && len != 11) return false;
   if (len == 2) {
     char str[] = "-p";
     for (int i = 0; i < len; i++) {
@@ -34,7 +34,7 @@ bool is_opt_p(char* arg, int len) {
 }
 
 bool is_opt_n(char* arg, int len) {
-  if (len != 2 || len != 14) return false;
+  if (len != 2 && len != 14) return false;
   if (len == 2) {
     char str[] = "-n";
     for (int i = 0; i < len; i++) {
@@ -51,8 +51,7 @@ bool is_opt_n(char* arg, int len) {
 }
 
 bool is_opt_v(char* arg, int len) {
-  printf("%d", len);
-  if (len != 2 || len != 9) return false;
+  if (len != 2 && len != 9) return false;
   if (len == 2) {
     char str[] = "-v";
     for (int i = 0; i < len; i++) {

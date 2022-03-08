@@ -101,7 +101,7 @@ int parse_digits(char* str) {
   return result;
 }
 
-int pids[4096];
+int pids[4096] = {0};
 // returns the number of processes 
 int load_proc() {
   struct dirent *pDirent;
@@ -118,6 +118,7 @@ int load_proc() {
       printf("[%d]\n", num);
       pids[idx++] = num;
   }
+  assert(pids[idx] == 0 && pids[idx-1] > 0);
   return idx;
 }
 

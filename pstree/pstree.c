@@ -165,7 +165,7 @@ int build_tree(int nodes_num) {
   assert(rooti != -1);
 
   // fill children attr
-  return 
+  return rooti;
 }
 
 struct ProcNode parse_node(char* buf) {

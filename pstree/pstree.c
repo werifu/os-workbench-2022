@@ -118,6 +118,7 @@ int load_proc() {
       printf("[%d]\n", num);
       pids[idx++] = num;
   }
+  printf("\n%d\n", idx);
   return idx;
 }
 

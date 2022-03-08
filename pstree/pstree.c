@@ -92,7 +92,7 @@ int pids[4096];
 // returns the number of processes 
 int load_proc() {
   DIR* dir;
-  dir_p = opendir("/proc/");
+  dir = opendir("/proc/");
   if (dir_p) {
     struct dirent *p;
     p = readdir(dir_p);

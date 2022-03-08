@@ -88,6 +88,19 @@ void parse_opt(int argc, char *argv[]) {
   return;
 }
 
+// returns -1 if not number
+int parse_digits(char* str) {
+  int len = strlen(str);
+  int result = 0;
+  for (int i = 0; i < len; i++) {
+    if (str[i] < '0' || str[i] > '9') return -1;
+    int digit = str[i] - '0';
+    result *= 10;
+    result += digit;
+  }
+  return result;
+}
+
 int pids[4096];
 // returns the number of processes 
 int load_proc() {
@@ -98,12 +111,16 @@ int load_proc() {
       printf ("Cannot open directory '/proc/'\n");
       return 1;
   }
-  // Process each entr
+  int idx = 0;
   while ((pDirent = readdir(pDir)) != NULL) {
-      printf ("[%s]\n", pDirent->d_name);
+      int num = parse_digits(pDirent->d_name);
+      if (num == -1) continue;
+      printf("[%d]\n", num);
+      pids[idx++] = num;
   }
-  return 0;
+  return idx;
 }
+
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {

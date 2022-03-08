@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-
+#include <dirent.h>
 // bool true & false
 #define true 1
 #define false 0
@@ -88,6 +88,20 @@ void parse_opt(int argc, char *argv[]) {
   return;
 }
 
+int pids[4096];
+// returns the number of processes 
+int load_proc() {
+  DIR* dir;
+  dir_p = opendir("/proc/");
+  if (dir_p) {
+    struct dirent *p;
+    p = readdir(dir_p);
+    while (p) {
+      printf("[%s]\n", p->d_name);
+    }
+  }
+  return;
+}
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {
@@ -100,5 +114,6 @@ int main(int argc, char *argv[]) {
   if (opt_p) {
     printf("opt_p\n");
   }
+  load_proc();
   return 0;
 }

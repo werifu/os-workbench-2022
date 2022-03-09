@@ -232,7 +232,7 @@ int build_tree(int nodes_num) {
   return 0;
 }
 
-void print_nodes(int proc_num) {
+void print_nodes_arr(int proc_num) {
   for (int i = 0; i < proc_num; i++) {
     ProcNode* node = nodes[i];
     printf("[pid:%d,\texec_name:%s,\tppid:%d,\t", node->pid, node->exec_name, node->ppid);
@@ -243,12 +243,24 @@ void print_nodes(int proc_num) {
     printf("\n");
   }
 }
+
 void print_pids(int num) {
   for (int i = 0; i < num; i++) {
     printf("%d ", pids[i]);
   }
   printf("\n");
 }
+
+
+int need_space = 0;
+int need_line = 0;
+char tree_str[512][256] = {0};
+
+void print_tree(int rooti) {
+  ProcNode* root = nodes[rooti];
+
+}
+
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {
@@ -264,7 +276,7 @@ int main(int argc, char *argv[]) {
   int proc_num = load_proc();
   // print_pids(proc_num);
   build_tree(proc_num); // add a pid=0 node
-  print_nodes(proc_num);
+  print_nodes_arr(proc_num);
 
   return 0;
 }

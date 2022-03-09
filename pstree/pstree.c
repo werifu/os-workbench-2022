@@ -213,7 +213,7 @@ int build_tree(int nodes_num) {
   for (int i = 1; i < nodes_num; i++) {
     ProcNode* node = nodes[i];
     // fill the children attribute of node's parent
-    int j = 1;
+    int j = 0;
     while (j <= i) {
       if (nodes[j]->pid == node->ppid) {
         ProcNode* parent = nodes[j];

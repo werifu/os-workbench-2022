@@ -263,7 +263,6 @@ void load_tree(ProcNode* root, int row, int col) {
   for (int i = 0; i < root->name_size; i++) {
     tree_str[row][col++] = root->exec_name[i];
   }
-  printf("%s:%d\n", root->exec_name, root->pid);
   // now '-process_name' is loaded
   max_row = max(max_row, row);
   if (root->child_num <= 0) {

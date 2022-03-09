@@ -265,9 +265,7 @@ void load_tree(ProcNode* root, int row, int col) {
   }
   // now '-process_name' is loaded
   max_row = max(max_row, row);
-  if (root->child_num <= 0) {
-    return;
-  }
+  
   // show pid option
   if (opt_p) {
     tree_str[row][col++] = '(';
@@ -278,6 +276,10 @@ void load_tree(ProcNode* root, int row, int col) {
       tree_str[row][col++] = num_buf[i++];
     }
     tree_str[row][col++] = ')';
+  }
+
+  if (root->child_num <= 0) {
+    return;
   }
   tree_str[row][col++] = '-';
   // '-+-aaa

@@ -257,6 +257,7 @@ inline int max(int a, int b) {return a > b? a: b;}
 int max_row = 0;
 char tree_str[512][256] = {0};
 
+int opt_n_child = false;
 // load tree into string
 void load_tree(ProcNode* root, int row, int col) {
   if (!root) return;
@@ -279,9 +280,12 @@ void load_tree(ProcNode* root, int row, int col) {
     tree_str[row][col++] = ')';
   }
 
-  if (root->child_num <= 0) {
+  if (root->child_num <= 0 || opt_n_child) {
     return;
   }
+  // set true on root, it will print its directly children only.
+  if (opt_n) opt_n_child = true;
+
   tree_str[row][col++] = '-';
   // '-+-aaa
   //   |

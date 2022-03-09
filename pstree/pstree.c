@@ -215,9 +215,11 @@ int build_tree(int nodes_num) {
     int j = 0;
     while (j <= i) {
       if (nodes[j]->pid == node->ppid) {
-        node->children[node->child_num++] = i;
+        ProcNode* parent = nodes[j];
+        parent->children[parent->child_num++] = i;
         break;
       }
+      j++;
     }
     assert(j < i + 1);  // must find
 

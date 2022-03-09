@@ -192,7 +192,7 @@ int build_tree(int nodes_num) {
   nodes[0]->exec_name[0] = 0;
 
   // i starts at 1 because 0 is not a process
-  for (int i = 1; i < nodes_num; i++) {
+  for (int i = 0; i < nodes_num; i++) {
     int pid = pids[i];
     char path[256] = {0};
     sprintf(path, "/proc/%d/stat", pid);
@@ -240,6 +240,12 @@ void print_nodes(int proc_num) {
     printf("\n");
   }
 }
+void print_pids(int num) {
+  for (int i = 0; i < num; i++) {
+    printf("%d ", pids[i]);
+  }
+  printf("\n");
+}
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {
@@ -253,8 +259,8 @@ int main(int argc, char *argv[]) {
     printf("opt_p\n");
   }
   int proc_num = load_proc();
+  print_pids(proc_num+1);
   build_tree(proc_num+1); // add a pid=0 node
-
   print_nodes(proc_num);
 
   return 0;

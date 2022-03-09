@@ -165,6 +165,9 @@ void parse_node(char* buf, int len, int idx) {
     node->exec_name[j++] = buf[i];
     i++;
   }
+  // eat a ')'
+  buf[i-1] = 0;
+  
   node->name_size = j;
 
   // state

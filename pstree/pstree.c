@@ -359,6 +359,19 @@ int main(int argc, char *argv[]) {
   // print_pids(proc_num);
   build_tree(proc_num); // add a pid=0 node
   // print_nodes_arr(proc_num);
+  ProcNode* root = NULL;
+  if (opt_n) {
+    for (int i = 0; i < proc_num; i++) {
+      if (pids[i] == opt_n_value) {
+        root = nodes[i];
+        break;
+      }
+    }
+  } else {
+    root = nodes[0];
+  }
+  
+  assert(root);
   load_tree(nodes[0], 0, 0);
   print_tree();
 

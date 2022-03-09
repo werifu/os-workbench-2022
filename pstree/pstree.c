@@ -124,7 +124,7 @@ int load_proc() {
   return idx;
 }
 
-struct ProcNode {
+typedef struct ProcNode {
   int pid;
   char* exec_name;
   int name_size;
@@ -133,8 +133,14 @@ struct ProcNode {
   // nodes[children[i]] is its i-th child
   int* children;
   int child_num;
-};
-struct ProcNode nodes[MAX_PROC_NUM];
+} ProcNode;
+ProcNode nodes[MAX_PROC_NUM];
+
+ProcNode parse_node(char* buf) {
+  ProcNode node;
+  
+  return node;
+}
 
 // returns the index of the root node (pid=1)
 // returns -1 when fail occurs (such as open fail)
@@ -169,11 +175,6 @@ int build_tree(int nodes_num) {
   return rooti;
 }
 
-(struct ProcNode) parse_node(char* buf) {
-  struct ProcNode node;
-
-  return node;
-}
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {

@@ -221,7 +221,7 @@ int build_tree(int nodes_num) {
       if (nodes[j]->pid == node->ppid) {
         ProcNode* parent = nodes[j];
         parent->children[parent->child_num++] = i;
-        printf("nodes[%d]->ppid == %d, nodes[%d]->pid == %d\n", i, node->ppid, j, nodes[j]->pid);
+        // printf("nodes[%d]->ppid == %d, nodes[%d]->pid == %d\n", i, node->ppid, j, nodes[j]->pid);
         break;
       }
       j++;

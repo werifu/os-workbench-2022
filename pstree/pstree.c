@@ -3,6 +3,8 @@
 #include <string.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <stdlib.h>
+
 // bool true & false
 #define true 1
 #define false 0
@@ -126,18 +128,56 @@ int load_proc() {
 
 typedef struct ProcNode {
   int pid;
-  char* exec_name;
-  int name_size;
+  char exec_name[256];
+  int  name_size;
   int ppid;
 
   // nodes[children[i]] is its i-th child
-  int* children;
+  int children[256];
   int child_num;
 } ProcNode;
-ProcNode nodes[MAX_PROC_NUM];
+ProcNode* nodes[MAX_PROC_NUM];
 
-ProcNode parse_node(char* buf) {
-  return nodes[0];
+// init nodes[idx]
+void parse_node(char* buf, int len, int idx) {
+  nodes[idx] = (ProcNode*)malloc(sizeof(ProcNode));
+  ProcNode* node = nodes[idx];
+  int i = 0;
+  // cat /proc/[pid]/stat 
+  // => pid comm state ppid ...
+
+  // pid
+  int pid = 0;
+  while (buf[i] != ' ') {
+    int digit = buf[i] - '0';
+    pid *= 10;
+    pid += digit;
+  }
+  node->pid = pid;
+
+  // comm
+  i++;  // skip '('
+  int j = 0;
+  while (buf[i] != ')') {
+    node->exec_name[j++] = buf[i];
+  }
+  node->name_size = j;
+
+  // state
+  i += 4; // skip ')' and ' ' and 'S'(state) and ' '
+
+  // ppid
+  int ppid = 0;
+  while (buf[i] != ' ') {
+    int digit = buf[i] - '0';
+    ppid *= 10;
+    ppid += digit;
+  }
+  node->ppid = ppid;
+
+  // init child_num
+  node->child_num = 0;
+  return;
 }
 
 // returns the index of the root node (pid=1)
@@ -156,7 +196,8 @@ int build_tree(int nodes_num) {
     char stat_buf[1024];
     // n bytes are read
     int n = fread(stat_buf, 1024, 1, fp);
-    nodes[i] = parse_node(stat_buf);
+    
+    parse_node(stat_buf, n, i);
   }
 
   // find the root index

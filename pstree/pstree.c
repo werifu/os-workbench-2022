@@ -161,14 +161,14 @@ void parse_node(char* buf, int len, int idx) {
   // comm
   i += 2;  // skip ' ' and '('
   int j = 0;
-  while (buf[i] != ')') {
+  while (buf[i] != ' ') {
     node->exec_name[j++] = buf[i];
     i++;
   }
   node->name_size = j;
 
   // state
-  i += 4; // skip ')' and ' ' and 'S'(state) and ' '
+  i += 3; // ' ' and 'S'(state) and ' '
 
   // ppid
   int ppid = 0;

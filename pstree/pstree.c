@@ -19,6 +19,8 @@ typedef char bool;
 bool opt_v = false;
 bool opt_n = false;
 int opt_n_value = -1;
+bool opt_n_child = false;
+
 bool opt_p = false;
 
 bool is_opt_p(char* arg, int len) {
@@ -83,6 +85,11 @@ void parse_opt(int argc, char *argv[]) {
     }
     if (is_opt_n(argv[i], len)) {
       opt_n = true;
+      // -n should be followed by a number
+      assert(i < argc - 1);
+      opt_n_value = atoi(argv[i + 1]);
+      assert(opt_n_value >= 0);
+      i++;
       continue;
     }
     if (is_opt_p(argv[i], len)) {
@@ -257,7 +264,7 @@ inline int max(int a, int b) {return a > b? a: b;}
 int max_row = 0;
 char tree_str[512][256] = {0};
 
-int opt_n_child = false;
+
 // load tree into string
 void load_tree(ProcNode* root, int row, int col) {
   if (!root) return;

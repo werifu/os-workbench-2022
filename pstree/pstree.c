@@ -18,6 +18,7 @@ typedef char bool;
 
 bool opt_v = false;
 bool opt_n = false;
+int opt_n_value = -1;
 bool opt_p = false;
 
 bool is_opt_p(char* arg, int len) {
@@ -329,6 +330,7 @@ void print_tree() {
     printf("%s\n", tree_str[i]);
   }
 }
+
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {
@@ -342,10 +344,12 @@ int main(int argc, char *argv[]) {
     printf("opt_p\n");
   }
   int proc_num = load_proc();
+
   // print_pids(proc_num);
   build_tree(proc_num); // add a pid=0 node
   // print_nodes_arr(proc_num);
   load_tree(nodes[0], 0, 0);
   print_tree();
+
   return 0;
 }

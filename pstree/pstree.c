@@ -169,7 +169,7 @@ int build_tree(int nodes_num) {
   return rooti;
 }
 
-struct ProcNode parse_node(char* buf) {
+(struct ProcNode) parse_node(char* buf) {
   struct ProcNode node;
 
   return node;

@@ -287,9 +287,10 @@ void load_tree(ProcNode* root, int row, int col) {
 
     for (int i = 1; i < root->child_num-1; i++) {
       while (row <= max_row) {
-        for (int j = 0; j < row; j++) tree_str[row][j] = ' ';
+        for (int j = 0; j < col; j++) tree_str[row][j] = ' ';
         tree_str[row++][col] = '|';
       }
+      for (int j = 0; j < col; j++) tree_str[row][j] = ' ';
       tree_str[row][col++] = '+';
       load_tree(root->children[i], row, col);
       row++;
@@ -297,9 +298,10 @@ void load_tree(ProcNode* root, int row, int col) {
 
     // last node '   `-xxx'
     while (row <= max_row) {
-      for (int j = 0; j < row; j++) tree_str[row][j] = ' ';
+      for (int j = 0; j < col; j++) tree_str[row][j] = ' ';
       tree_str[row++][col] = '|';
     }
+    for (int j = 0; j < row; j++) tree_str[row][j] = ' ';
     tree_str[row][col++] = '`';
     load_tree(root->children[0], row, col);
   }

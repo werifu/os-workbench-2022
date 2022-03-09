@@ -218,7 +218,7 @@ int build_tree(int nodes_num) {
       if (nodes[j]->pid == node->ppid) {
         ProcNode* parent = nodes[j];
         parent->children[parent->child_num++] = i;
-        printf("nodes[%d]->pid == %d, nodes[%d]->ppid == %d\n", j, nodes[j]->pid, i, node->ppid);
+        printf("nodes[%d]->ppid == %d, nodes[%d]->pid == %d\n", i, node->ppid, j, nodes[j]->pid);
         break;
       }
       j++;
@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
     printf("opt_p\n");
   }
   int proc_num = load_proc();
-  print_pids(proc_num);
+  // print_pids(proc_num);
   build_tree(proc_num); // add a pid=0 node
   print_nodes(proc_num);
 

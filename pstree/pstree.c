@@ -348,12 +348,6 @@ int main(int argc, char *argv[]) {
     printf("version: 0.0.1\n");
     return 0;
   }
-  if (opt_n) {
-    printf("opt_n\n");
-  }
-  if (opt_p) {
-    printf("opt_p\n");
-  }
   int proc_num = load_proc();
 
   // print_pids(proc_num);

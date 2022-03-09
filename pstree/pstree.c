@@ -168,7 +168,7 @@ void parse_node(char* buf, int len, int idx) {
   // eat a ')'
   node->exec_name[j-1] = 0;
 
-  node->name_size = j;
+  node->name_size = j-1;
 
   // state
   i += 3; // ' ' and 'S'(state) and ' '

@@ -116,6 +116,7 @@ int load_proc() {
       return 1;
   }
   int idx = 0;
+  // maybe asc order
   while ((pDirent = readdir(pDir)) != NULL) {
       int num = parse_digits(pDirent->d_name);
       if (num == -1) continue;
@@ -183,10 +184,14 @@ void parse_node(char* buf, int len, int idx) {
   return;
 }
 
-// returns the index of the root node (pid=1)
 // returns -1 when fail occurs (such as open fail)
+// returns 0 when success
 int build_tree(int nodes_num) {
-  for (int i = 0; i < nodes_num; i++) {
+  nodes[0] = (ProcNode*)malloc(sizeof(ProcNode));
+  nodes[0]->exec_name[0] = 0;
+
+  // i starts at 1 because 0 is not a process
+  for (int i = 1; i < nodes_num; i++) {
     int pid = pids[i];
     char path[256] = {0};
     sprintf(path, "/proc/%d/stat", pid);
@@ -203,24 +208,32 @@ int build_tree(int nodes_num) {
     parse_node(stat_buf, n, i);
   }
 
-  // find the root index
-  int rooti = -1;
-  for (int i = 0; i < nodes_num; i++) {
-    if (nodes[i]->pid == 1) {
-      rooti = i;
-      break;
+  // nodes[0] is pid=0
+  for (int i = 1; i < nodes_num; i++) {
+    ProcNode* node = nodes[i];
+    // fill the children attribute of node's parent
+    int j = 0;
+    while (j <= i) {
+      if (nodes[j]->pid == node->ppid) {
+        node->children[child_num++] = i;
+        break;
+      }
     }
-  }
-  assert(rooti != -1);
+    assert(j < i + 1);  // must find
 
-  // fill children attr
-  return rooti;
+  }
+  return 0;
 }
 
 void print_nodes(int proc_num) {
   for (int i = 0; i < proc_num; i++) {
     ProcNode* node = nodes[i];
-    printf("[pid:%d, exec_name:%s, ppid:%d]\n", node->pid, node->exec_name, node->ppid);
+    printf("[pid:%d, exec_name:%s, ppid:%d, ", node->pid, node->exec_name, node->ppid);
+    printf("children-pid: ");
+    for (int j = 0; j < node->child_num; j++) {
+      printf("%d ", nodes[node->children[j]]->pid);
+    }
+    printf("\n");
   }
 }
 int main(int argc, char *argv[]) {
@@ -236,7 +249,7 @@ int main(int argc, char *argv[]) {
     printf("opt_p\n");
   }
   int proc_num = load_proc();
-  int rooti = build_tree(proc_num);
+  build_tree(proc_num+1); // add a pid=0 node
 
   print_nodes(proc_num);
 

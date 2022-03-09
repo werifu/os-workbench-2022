@@ -137,9 +137,7 @@ typedef struct ProcNode {
 ProcNode nodes[MAX_PROC_NUM];
 
 ProcNode parse_node(char* buf) {
-  ProcNode node;
-  
-  return node;
+  return nodes[0];
 }
 
 // returns the index of the root node (pid=1)

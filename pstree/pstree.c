@@ -215,7 +215,7 @@ int build_tree(int nodes_num) {
     int j = 0;
     while (j <= i) {
       if (nodes[j]->pid == node->ppid) {
-        node->children[child_num++] = i;
+        node->children[node->child_num++] = i;
         break;
       }
     }

@@ -203,7 +203,7 @@ int build_tree(int nodes_num) {
   // find the root index
   int rooti = -1;
   for (int i = 0; i < nodes_num; i++) {
-    if (nodes[i].pid == 1) {
+    if (nodes[i]->pid == 1) {
       rooti = i;
       break;
     }

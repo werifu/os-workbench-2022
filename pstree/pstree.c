@@ -192,7 +192,7 @@ int build_tree(int nodes_num) {
   nodes[0]->exec_name[0] = 0;
 
   // i starts at 1 because 0 is not a process
-  for (int i = 0; i < nodes_num; i++) {
+  for (int i = 1; i < nodes_num; i++) {
     int pid = pids[i];
     char path[256] = {0};
     sprintf(path, "/proc/%d/stat", pid);

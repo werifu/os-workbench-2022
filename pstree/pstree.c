@@ -259,8 +259,8 @@ int main(int argc, char *argv[]) {
     printf("opt_p\n");
   }
   int proc_num = load_proc();
-  print_pids(proc_num+1);
-  build_tree(proc_num+1); // add a pid=0 node
+  print_pids(proc_num);
+  build_tree(proc_num); // add a pid=0 node
   print_nodes(proc_num);
 
   return 0;

@@ -198,7 +198,7 @@ int build_tree(int nodes_num) {
     sprintf(path, "/proc/%d/stat", pid);
     FILE* fp = fopen(path, "r");
     if (!fp) {
-      printf("fail to open file %s\n", path);
+      printf("fail to open file %s, %d\n", path, i);
       return -1;
     }
     assert(fp);

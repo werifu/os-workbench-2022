@@ -215,6 +215,7 @@ int build_tree(int nodes_num) {
     int j = 0;
     while (j <= i) {
       if (nodes[j]->pid == node->ppid) {
+        printf("ss\n");
         ProcNode* parent = nodes[j];
         parent->children[parent->child_num++] = i;
         break;

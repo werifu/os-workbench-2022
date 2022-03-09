@@ -251,14 +251,56 @@ void print_pids(int num) {
   printf("\n");
 }
 
+inline int max(int a, int b) {return a > b? a: b;}
 
-int need_space = 0;
-int need_line = 0;
+int max_row = 0;
 char tree_str[512][256] = {0};
 
-void print_tree(int rooti) {
+// load tree into string
+void load_tree(int rooti, int row, int col) {
   ProcNode* root = nodes[rooti];
+  tree_str[row][col++] = '-';
+  for (int i = 0; i < root->name_size; i++) {
+    tree_str[row][col++] = root->exec_name[i];
+  }
+  // now '-process_name' is loaded
+  max_row = max(max_row, row);
+  if (root->child_num <= 0) {
+    return;
+  }
+  tree_str[row][col++] = '-';
+  // '-+-aaa
+  //   |
+  //   +-aa'
+  //   ^ this one
+  if (root->child_num == 1) {
+    tree_str[row][col++] = '-';
+    load_tree(root->children[0], row, col);
+  } else {
+    assert(root->child_num >= 2);
 
+    // first node '+-xxx'
+    tree_str[row][col++] = '+';
+    load_tree(root->children[0], row, col);
+    // to next child
+    row++;
+
+    for (int i = 1; i < root->child_num-1; i++) {
+      while (row <= max_row) {
+        tree_str[row++][col] = '|';
+      }
+      tree_str[row][col++] = '+';
+      load_tree(root->children[i], row, col);
+      row++;
+    }
+
+    // last node '`-xxx'
+    while (row <= max_row) {
+      tree_str[row++][col] = '|';
+    }
+    tree_str[row][col++] = '`';
+    load_tree(root->children[0], row, col);
+  }
 }
 
 int main(int argc, char *argv[]) {

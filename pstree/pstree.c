@@ -210,6 +210,7 @@ int build_tree(int nodes_num) {
 
   // nodes[0] is pid=0
   for (int i = 1; i < nodes_num; i++) {
+    printf("??\n");
     ProcNode* node = nodes[i];
     // fill the children attribute of node's parent
     int j = 0;

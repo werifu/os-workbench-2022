@@ -287,6 +287,7 @@ void load_tree(int rooti, int row, int col) {
 
     for (int i = 1; i < root->child_num-1; i++) {
       while (row <= max_row) {
+        for (int j = 0; j < row; j++) tree_str[row][j] = ' ';
         tree_str[row++][col] = '|';
       }
       tree_str[row][col++] = '+';
@@ -294,8 +295,9 @@ void load_tree(int rooti, int row, int col) {
       row++;
     }
 
-    // last node '`-xxx'
+    // last node '   `-xxx'
     while (row <= max_row) {
+      for (int j = 0; j < row; j++) tree_str[row][j] = ' ';
       tree_str[row++][col] = '|';
     }
     tree_str[row][col++] = '`';

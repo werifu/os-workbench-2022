@@ -215,10 +215,10 @@ int build_tree(int nodes_num) {
     // fill the children attribute of node's parent
     int j = 0;
     while (j <= i) {
-      printf("nodes[%d]->pid == %d, nodes[%d]->ppid == %d\n", j, nodes[j]->pid, i, node->ppid);
       if (nodes[j]->pid == node->ppid) {
         ProcNode* parent = nodes[j];
         parent->children[parent->child_num++] = i;
+        printf("nodes[%d]->pid == %d, nodes[%d]->ppid == %d\n", j, nodes[j]->pid, i, node->ppid);
         break;
       }
       j++;

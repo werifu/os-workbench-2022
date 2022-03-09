@@ -370,9 +370,9 @@ int main(int argc, char *argv[]) {
   } else {
     root = nodes[0];
   }
-  
+
   assert(root);
-  load_tree(nodes[0], 0, 0);
+  load_tree(root, 0, 0);
   print_tree();
 
   return 0;

@@ -325,7 +325,7 @@ int main(int argc, char *argv[]) {
   int proc_num = load_proc();
   // print_pids(proc_num);
   build_tree(proc_num); // add a pid=0 node
-  // print_nodes_arr(proc_num);
+  print_nodes_arr(proc_num);
   load_tree(nodes[0], 0, 0);
   print_tree();
   return 0;

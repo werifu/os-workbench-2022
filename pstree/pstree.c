@@ -268,6 +268,17 @@ void load_tree(ProcNode* root, int row, int col) {
   if (root->child_num <= 0) {
     return;
   }
+  // show pid option
+  if (opt_p) {
+    tree_str[row][col++] = '(';
+    char num_buf[20] = {0};
+    sprintf(num_buf, "%d", root->pid);
+    int i = 0;
+    while (num_buf[i]) {
+      tree_str[row][col++] = num_buf[i++];
+    }
+    tree_str[row][col++] = ')';
+  }
   tree_str[row][col++] = '-';
   // '-+-aaa
   //   |

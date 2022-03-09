@@ -143,7 +143,7 @@ int build_tree(int nodes_num) {
     int pid = pids[i];
     char path[256] = {0};
     sprintf(path, "/proc/%d/stat", pid);
-    int fp = open(path);
+    FILE* fp = fopen(path, "r");
     if (!fp) {
       printf("fail to open file %s\n", path);
       return -1;
@@ -151,7 +151,7 @@ int build_tree(int nodes_num) {
     assert(fp);
     char stat_buf[1024];
     // n bytes are read
-    int n = read(fp, stat_buf, 1024);
+    int n = fread(fp, stat_buf, 1024);
     nodes[i] = parse_node(stat_buf);
   }
 

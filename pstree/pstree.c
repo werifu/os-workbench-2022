@@ -303,6 +303,11 @@ void load_tree(int rooti, int row, int col) {
   }
 }
 
+void print_tree() {
+  for (int i = 0; i <= max_row; i++) {
+    printf("%s\n", tree_str[i]);
+  }
+}
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {
@@ -318,7 +323,8 @@ int main(int argc, char *argv[]) {
   int proc_num = load_proc();
   // print_pids(proc_num);
   build_tree(proc_num); // add a pid=0 node
-  print_nodes_arr(proc_num);
-
+  // print_nodes_arr(proc_num);
+  load_tree(0, 0, 0);
+  print_tree();
   return 0;
 }

@@ -115,7 +115,8 @@ int load_proc() {
       printf ("Cannot open directory '/proc/'\n");
       return 1;
   }
-  int idx = 0;
+  // pids[0] is 0
+  int idx = 1;
   // maybe asc order
   while ((pDirent = readdir(pDir)) != NULL) {
       int num = parse_digits(pDirent->d_name);
@@ -210,7 +211,6 @@ int build_tree(int nodes_num) {
 
   // nodes[0] is pid=0
   for (int i = 1; i < nodes_num; i++) {
-    printf("??\n");
     ProcNode* node = nodes[i];
     // fill the children attribute of node's parent
     int j = 0;

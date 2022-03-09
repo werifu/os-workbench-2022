@@ -157,7 +157,7 @@ void parse_node(char* buf, int len, int idx) {
   node->pid = pid;
 
   // comm
-  i++;  // skip '('
+  i += 2;  // skip ' ' and '('
   int j = 0;
   while (buf[i] != ')') {
     node->exec_name[j++] = buf[i];

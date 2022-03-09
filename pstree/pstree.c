@@ -152,6 +152,7 @@ void parse_node(char* buf, int len, int idx) {
     int digit = buf[i] - '0';
     pid *= 10;
     pid += digit;
+    i++;
   }
   node->pid = pid;
 
@@ -160,6 +161,7 @@ void parse_node(char* buf, int len, int idx) {
   int j = 0;
   while (buf[i] != ')') {
     node->exec_name[j++] = buf[i];
+    i++;
   }
   node->name_size = j;
 
@@ -172,6 +174,7 @@ void parse_node(char* buf, int len, int idx) {
     int digit = buf[i] - '0';
     ppid *= 10;
     ppid += digit;
+    i++;
   }
   node->ppid = ppid;
 

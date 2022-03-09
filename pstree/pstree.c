@@ -232,7 +232,7 @@ int build_tree(int nodes_num) {
 void print_nodes(int proc_num) {
   for (int i = 0; i < proc_num; i++) {
     ProcNode* node = nodes[i];
-    printf("[pid:%d, exec_name:%s,\tppid:%d, ", node->pid, node->exec_name, node->ppid);
+    printf("[pid:%d,\texec_name:%s,\tppid:%d,\t", node->pid, node->exec_name, node->ppid);
     printf("children-pid: ");
     for (int j = 0; j < node->child_num; j++) {
       printf("%d ", nodes[node->children[j]]->pid);

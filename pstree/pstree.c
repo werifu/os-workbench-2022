@@ -134,8 +134,8 @@ typedef struct ProcNode {
   int  name_size;
   int ppid;
 
-  // nodes[children[i]] is its i-th child
-  int children[256];
+  // children[i] is its i-th child
+  struct ProcNode* children[256];
   int child_num;
 } ProcNode;
 ProcNode* nodes[MAX_PROC_NUM];
@@ -220,7 +220,7 @@ int build_tree(int nodes_num) {
     while (j <= i) {
       if (nodes[j]->pid == node->ppid) {
         ProcNode* parent = nodes[j];
-        parent->children[parent->child_num++] = i;
+        parent->children[parent->child_num++] = node;
         // printf("nodes[%d]->ppid == %d, nodes[%d]->pid == %d\n", i, node->ppid, j, nodes[j]->pid);
         break;
       }
@@ -238,7 +238,7 @@ void print_nodes_arr(int proc_num) {
     printf("[pid:%d,\texec_name:%s,\tppid:%d,\t", node->pid, node->exec_name, node->ppid);
     printf("children-pid: ");
     for (int j = 0; j < node->child_num; j++) {
-      printf("%d ", nodes[node->children[j]]->pid);
+      printf("%d ", node->children[j]->pid);
     }
     printf("\n");
   }
@@ -257,8 +257,7 @@ int max_row = 0;
 char tree_str[512][256] = {0};
 
 // load tree into string
-void load_tree(int rooti, int row, int col) {
-  ProcNode* root = nodes[rooti];
+void load_tree(ProcNode* root, int row, int col) {
   tree_str[row][col++] = '-';
   for (int i = 0; i < root->name_size; i++) {
     tree_str[row][col++] = root->exec_name[i];

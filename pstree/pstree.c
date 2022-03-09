@@ -214,6 +214,12 @@ int build_tree(int nodes_num) {
   return rooti;
 }
 
+void print_nodes(int proc_num) {
+  for (int i = 0; i < proc_num; i++) {
+    ProcNode* node = nodes[i];
+    printf("[pid:%d, exec_name:%s, ppid:%d]\n", node->pid, node->exec_name, node->ppid);
+  }
+}
 int main(int argc, char *argv[]) {
   parse_opt(argc, argv);
   if (opt_v) {
@@ -226,7 +232,10 @@ int main(int argc, char *argv[]) {
   if (opt_p) {
     printf("opt_p\n");
   }
-  load_proc();
+  int proc_num = load_proc();
+  int rooti = build_tree(proc_num);
+
+  print_nodes(proc_num);
 
   return 0;
 }

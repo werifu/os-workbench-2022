@@ -330,7 +330,7 @@ void load_tree(ProcNode* root, int row, int col) {
       for (int j = 0; j < col; j++) tree_str[row][j] = ' ';
       tree_str[row++][col] = '|';
     }
-    for (int j = 0; j < row; j++) tree_str[row][j] = ' ';
+    for (int j = 0; j < col; j++) tree_str[row][j] = ' ';
     tree_str[row][col++] = '`';
     load_tree(root->children[root->child_num-1], row, col);
   }

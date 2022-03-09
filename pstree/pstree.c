@@ -258,6 +258,7 @@ char tree_str[512][256] = {0};
 
 // load tree into string
 void load_tree(ProcNode* root, int row, int col) {
+  if (!root) return;
   tree_str[row][col++] = '-';
   for (int i = 0; i < root->name_size; i++) {
     tree_str[row][col++] = root->exec_name[i];
